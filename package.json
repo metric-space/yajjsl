@@ -1,0 +1,17 @@
+{
+  "name": "yajjsl",
+  "version": "1.0.0",
+  "description": "yet another javascript json schema library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "monad",
+    "validation",
+    "schema"
+  ],
+  "author": "functor-soup",
+  "license": "MIT"
+}
