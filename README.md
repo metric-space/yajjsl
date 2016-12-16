@@ -1,5 +1,7 @@
 # Yet Another Javascript Json Schema Library (...hehe)
 
+![rickandmorty](https://github.com/functor-soup/raw/master/pic/rickandmorty.jpg)
+
 Yet another piece of code that tries to validate json based on types,
 this is NOT BASED ON THE JSON SCHEMA STANDARD which I find too verbose for my likes
 but that's just me.
