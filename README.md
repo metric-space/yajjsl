@@ -52,3 +52,4 @@ validate(incorrect1, schema1);
 
 ```
 
+[![Build Status](https://travis-ci.org/functor-soup/yajjsl.svg?branch=master)](https://travis-ci.org/functor-soup/yajjsl)
