@@ -2,7 +2,7 @@ const M = require("monet");
 const E = M.Either;
 const tuples = require('fantasy-tuples'),
     Tuple2 = tuples.Tuple2;
-const assert = require("assert");
+const assert = require("chai").assert;
 const utils = require("../index.js");
 
 describe("checkIfEmpty Util Tests", function() {
@@ -53,41 +53,89 @@ describe("checkIfEmpty Util Tests", function() {
 
 })
 
-describe("ValidSchemaKeys Util Tests", function() {
-    const schema1 = {
-        "weapon": "String",
-        "pokemon": ["Array", "String"]
-
-    };
-
-    const corruptSchema = {
-        "weapon": undefined,
-        "pokemon": {
-            "stuff": "Don't matter"
-        },
-        "pokeball#": "Number"
-    };
-
-
-    it("should return keys in the schema that are valid",
+describe("ValidSchema Util Tests", function() {
+    it("should return true",
         function() {
+            const schema1 = {
+                "weapon": "String",
+                "pokemon": ["Array", "String"]
 
-            const expectedOutcome = [
-                "weapon", "pokemon"
-            ]
-            assert.deepEqual(expectedOutcome,
-                utils.validSchemaKeys(schema1));
+            };
+
+            assert.equal(utils.validSchema(schema1), true);
 
         });
 
-    it("should return keys that are valid (part 2) ",
+    it("should return false",
         function() {
+            const schema2 = {
+                "weapon": "String",
+                "pokemon": ["String", "String"]
 
-            const expectedOutcome = ["pokeball#"]
-            assert.deepEqual(expectedOutcome,
-                utils.validSchemaKeys(corruptSchema));
+            };
+
+            assert.equal(utils.validSchema(schema2), false);
 
         });
+
+    it("More complex example should return true", function() {
+        const schema1 = {
+            "name": "String",
+            "location": ["Array", {
+                "address": "String",
+                "numbers": ["Array", "Number"]
+            }]
+        }
+
+        assert.equal(utils.validSchema(schema1), true);
+
+    })
+
+    it("More complex example should return false", function() {
+        const schema1 = {
+            "name": "String",
+            "location": ["Array", {
+                "address": "String",
+                "numbers": ["Number"]
+            }]
+        }
+
+        assert.equal(utils.validSchema(schema1), false);
+
+    })
+
+    it("Even More complex example should return true", function() {
+        const schema1 = {
+            "name": "String",
+            "detail": {
+                "location": ["Array", {
+                    "address": "String",
+                    "numbers": ["Array", "Number"]
+                }]
+            }
+        }
+
+        assert.equal(utils.validSchema(schema1), true);
+
+    });
+
+    it("Even More complex example should return false", function() {
+        const schema1 = {
+            "name": "String",
+            "detail": {
+                "location": ["String", {
+                    "address": "String",
+                    "numbers": ["Array", "Number"]
+                }]
+            }
+        }
+
+        assert.equal(utils.validSchema(schema1), false);
+
+    })
+
+
+
 });
 
 describe("validateArray Util Tests", function() {
@@ -156,9 +204,12 @@ describe("Main validate Util Tests", function() {
     const schema1 = {
         "weapon": "String",
         "pokemon": ["Array", "String"],
-        "pokeball": ["Object", {
+        "pokeball": {
             "material": "String",
             "cost": "Number"
+        },
+        "characters": ["Array", {
+            "name": "String"
         }]
     };
 
@@ -168,7 +219,12 @@ describe("Main validate Util Tests", function() {
         "pokeball": {
             "material": "Golden nut",
             "cost": 100
-        }
+        },
+        "characters": [{
+            "name": "Red Foreman"
+        }, {
+            "name": "I am Fez"
+        }]
     };
 
     const incorrect1 = {
@@ -198,14 +254,16 @@ describe("Main validate Util Tests", function() {
 
     it("incorrect types should output a list of tuples",
         function() {
-            assert.deepEqual([Tuple2("material", false)],
+            assert.sameDeepMembers([Tuple2("material", false), Tuple2("characters", undefined)],
                 utils.validate(incorrect1, schema1));
 
         });
 
     it("incorrect types should output a list of tuples (part 2)",
         function() {
-            assert.deepEqual([Tuple2("weapon", undefined), Tuple2("pokemon", false), Tuple2("material", false)],
+            assert.deepEqual([Tuple2("weapon", undefined), Tuple2("pokemon", false),
+                    Tuple2("material", false), Tuple2("characters", undefined)
+                ],
                 utils.validate(incorrect2, schema1));
 
         });
