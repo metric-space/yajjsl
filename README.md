@@ -8,9 +8,9 @@ but that's just me.
 
 ### Goals of this Library
 
-1. To provide type validation for enities inside a json object
-2. To provide value validation for entities inside a json object
-3. The output of this will a list of errors 
+1. To provide type validation for entities inside a json object
+2. To provide checkif-empty/undefined validation for entities inside a json object
+3. The output of this will be a list of errors 
 
 ### Development Goals
 
@@ -18,31 +18,34 @@ but that's just me.
 2. Use Ramda.js for other other operations
 3. Test library thoroughly
 
-### Pending
-
-1. Validation of complex array types (code is in place, just need to join em up nicely)
-
 
 ### Example
 
 
-```
+```javascript
+
 const schema1 = {
         "weapon": "String",
         "pokemon": ["Array", "String"],
-        "pokeball": ["Object", {
+        "pokeball": {
             "material": "String",
             "cost": "Number"
+        },
+	"characters": ["Array", {
+            "name": "String"
         }]
+
     };
 
 const incorrect1 = {
-        "weapon": "fishing-rod",
-        "pokemon": ["Butterfly", "Pikachu"],
+        "pokemon": [1, 2],
         "pokeball": {
             "material": ["Egg Nut", "Brown Nut"],
             "cost": 100
-        }
+        },
+	"characters": [{ "name": "Red Foreman"}, 
+		       { "name": "I am Fez" }]
+
     };
 
 validate(incorrect1, schema1);
