@@ -106,10 +106,6 @@ function validate(object, schema) {
             .cata(function(x) {
                 return [x];
             }, function(x) {
-                if (R.type(x) == "Object") {
-                    return validate(x, type);
-                }
-
                 return [];
             })
 
