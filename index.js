@@ -101,8 +101,8 @@ function validate(object, schema) {
         return (R.isNil(value) ?
                 M.Either.Left(Tuple2(key, undefined)) :
                 M.Either.Right(value))
-            .bind(x => validationT(x))
             .bind(x => validationE(x))
+            .bind(x => validationT(x))
             .cata(function(x) {
                 return [x];
             }, function(x) {
