@@ -3,7 +3,7 @@ const E = M.Either;
 const tuples = require('fantasy-tuples'),
     Tuple2 = tuples.Tuple2;
 const assert = require("chai").assert;
-const utils = require("../index.js");
+const utils = require("../lib/validate.js");
 
 describe("checkIfEmpty Util Tests", function() {
     it("check-if-empty util should return Right if not empty ",
@@ -52,91 +52,6 @@ describe("checkIfEmpty Util Tests", function() {
         })
 
 })
-
-describe("ValidSchema Util Tests", function() {
-    it("should return true",
-        function() {
-            const schema1 = {
-                "weapon": "String",
-                "pokemon": ["Array", "String"]
-
-            };
-
-            assert.equal(utils.validSchema(schema1), true);
-
-        });
-
-    it("should return false",
-        function() {
-            const schema2 = {
-                "weapon": "String",
-                "pokemon": ["String", "String"]
-
-            };
-
-            assert.equal(utils.validSchema(schema2), false);
-
-        });
-
-    it("More complex example should return true", function() {
-        const schema1 = {
-            "name": "String",
-            "location": ["Array", {
-                "address": "String",
-                "numbers": ["Array", "Number"]
-            }]
-        }
-
-        assert.equal(utils.validSchema(schema1), true);
-
-    })
-
-    it("More complex example should return false", function() {
-        const schema1 = {
-            "name": "String",
-            "location": ["Array", {
-                "address": "String",
-                "numbers": ["Number"]
-            }]
-        }
-
-        assert.equal(utils.validSchema(schema1), false);
-
-    })
-
-    it("Even More complex example should return true", function() {
-        const schema1 = {
-            "name": "String",
-            "detail": {
-                "location": ["Array", {
-                    "address": "String",
-                    "numbers": ["Array", "Number"]
-                }]
-            }
-        }
-
-        assert.equal(utils.validSchema(schema1), true);
-
-    });
-
-    it("Even More complex example should return false", function() {
-        const schema1 = {
-            "name": "String",
-            "detail": {
-                "location": ["String", {
-                    "address": "String",
-                    "numbers": ["Array", "Number"]
-                }]
-            }
-        }
-
-        assert.equal(utils.validSchema(schema1), false);
-
-    })
-
-
-
-});
 
 describe("validateArray Util Tests", function() {
 
