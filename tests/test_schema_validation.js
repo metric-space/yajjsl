@@ -1,12 +1,14 @@
 const assert = require("chai").assert;
 const utils = require("../lib/schema.js");
+const tuples = require('fantasy-tuples'),
+    Tuple = tuples.Tuple2;
 
 describe("ValidSchema Util Tests", function() {
     it("should return true",
         function() {
             const schema1 = {
                 "weapon": "String",
-                "pokemon": ["Array", "String"]
+                "pokemon": Tuple("Array", "String")
 
             };
 
@@ -18,7 +20,7 @@ describe("ValidSchema Util Tests", function() {
         function() {
             const schema2 = {
                 "weapon": "String",
-                "pokemon": ["String", "String"]
+                "pokemon": Tuple("String", "String")
 
             };
 
@@ -29,10 +31,10 @@ describe("ValidSchema Util Tests", function() {
     it("More complex example should return true", function() {
         const schema1 = {
             "name": "String",
-            "location": ["Array", {
+            "location": Tuple("Array", {
                 "address": "String",
-                "numbers": ["Array", "Number"]
-            }]
+                "numbers": Tuple("Array", "Number")
+            })
         }
 
         assert.equal(utils.validateSchema(schema1), true);
@@ -42,10 +44,10 @@ describe("ValidSchema Util Tests", function() {
     it("More complex example should return false", function() {
         const schema1 = {
             "name": "String",
-            "location": ["Array", {
+            "location": Tuple("Array", {
                 "address": "String",
-                "numbers": ["Number"]
-            }]
+                "Egghead": []
+            })
         }
 
         assert.equal(utils.validateSchema(schema1), false);
@@ -56,10 +58,10 @@ describe("ValidSchema Util Tests", function() {
         const schema1 = {
             "name": "String",
             "detail": {
-                "location": ["Array", {
+                "location": Tuple("Array", {
                     "address": "String",
-                    "numbers": ["Array", "Number"]
-                }]
+                    "numbers": Tuple("Array", "Number")
+                })
             }
         }
 
@@ -71,16 +73,14 @@ describe("ValidSchema Util Tests", function() {
         const schema1 = {
             "name": "String",
             "detail": {
-                "location": ["String", {
+                "location": Tuple("String", {
                     "address": "String",
-                    "numbers": ["Array", "Number"]
-                }]
+                    "numbers": Tuple("Array", "Number")
+                })
             }
         }
 
         assert.equal(utils.validateSchema(schema1), false);
 
-    })
-});
-
-
+    });
+})
