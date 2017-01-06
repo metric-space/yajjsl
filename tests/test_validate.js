@@ -1,5 +1,4 @@
-const M = require("monet");
-const E = M.Either;
+const S = require("sanctuary");
 const tuples = require('fantasy-tuples'),
     Tuple2 = tuples.Tuple2;
 const assert = require("chai").assert;
@@ -10,7 +9,7 @@ describe("checkIfEmpty Util Tests", function() {
         function() {
             const value = "Rick";
             const key = "Morty";
-            assert.deepEqual(E.Right(value), utils.checkIfEmpty(value, key));
+            assert.isTrue(S.Right(value).equals(utils.checkIfEmpty(value, key)));
 
         });
 
@@ -20,7 +19,7 @@ describe("checkIfEmpty Util Tests", function() {
                 "Rick": "Sanchez"
             };
             const key = "Morty";
-            assert.deepEqual(E.Right(value), utils.checkIfEmpty(value, key));
+            assert.isTrue(S.Right(value).equals(utils.checkIfEmpty(value, key)));
 
         });
 
@@ -28,7 +27,7 @@ describe("checkIfEmpty Util Tests", function() {
         function() {
             const value = ["Rick", "Sanchez"];
             const key = "Morty";
-            assert.deepEqual(E.Right(value), utils.checkIfEmpty(value, key));
+            assert.isTrue(S.Right(value).equals(utils.checkIfEmpty(value, key)));
 
         });
 
@@ -37,8 +36,7 @@ describe("checkIfEmpty Util Tests", function() {
         function() {
             const value = [];
             const key = "Morty";
-            assert.deepEqual(E.Left(Tuple2(key, "empty")),
-                utils.checkIfEmpty(value, key));
+            assert.isTrue(S.Left(Tuple2(key, "empty")).equals(utils.checkIfEmpty(value, key)));
 
         });
 
@@ -46,21 +44,20 @@ describe("checkIfEmpty Util Tests", function() {
         function() {
             const value = {};
             const key = "Morty";
-            assert.deepEqual(E.Left(Tuple2(key, "empty")),
-                utils.checkIfEmpty(value, key));
+            assert.isTrue(S.Left(Tuple2(key, "empty")).equals(utils.checkIfEmpty(value, key)));
 
         })
 
 })
 
-describe("validateArray Util Tests", function() {
+describe("validateArrayType Util Tests", function() {
 
     it("correct type array should output a Right ",
         function() {
             const array = ["weapon", "alpha", "wolfenstein"]
 
-            assert.deepEqual(E.Right(array),
-                utils.validateArray("String", array, "dontmatter"));
+            assert.isTrue(S.Right(true)
+			  .equals(utils.validateArrayType("String", array, "dontmatter")));
 
         });
 
@@ -68,20 +65,20 @@ describe("validateArray Util Tests", function() {
         function() {
             const array = ["weapon", 2, "wolfenstein"]
 
-            assert.deepEqual(E.Left(Tuple2("dontmatter", false)),
-                utils.validateArray("String", array, "dontmatter"));
+            assert.isTrue(S.Left(Tuple2("dontmatter", false))
+			  .equals(utils.validateArrayType("String", array, "dontmatter")));
 
         });
 });
 
-describe("validateType Util Tests", function() {
+describe("validateVanillaType Util Tests", function() {
 
     it("correct type should output a Right ",
         function() {
             const value = "wolfenstein";
 
-            assert.deepEqual(E.Right(value),
-                utils.validateType("String", value, "dontmatter"));
+            assert.isTrue(S.Right(true)
+			   .equals(utils.validateVanillaType("String", value, "dontmatter")));
 
         });
 
@@ -89,26 +86,8 @@ describe("validateType Util Tests", function() {
         function() {
             const value = 2;
 
-            assert.deepEqual(E.Left(Tuple2("dontmatter", false)),
-                utils.validateType("String", value, "dontmatter"));
-
-        });
-
-    it("correct type array should output a Right ",
-        function() {
-            const array = ["weapon", "alpha", "wolfenstein"]
-
-            assert.deepEqual(E.Right(array),
-                utils.validateType(["Array", "String"], array, "dontmatter"));
-
-        });
-
-    it("incorrect type array should output a Left ",
-        function() {
-            const array = ["weapon", 2, "wolfenstein"]
-
-            assert.deepEqual(E.Left(Tuple2("dontmatter", false)),
-                utils.validateType(["Array", "String"], array, "dontmatter"));
+            assert.isTrue(S.Left(Tuple2("dontmatter", false))
+			   .equals(utils.validateVanillaType("String", value, "dontmatter")));
 
         });
 
@@ -118,14 +97,14 @@ describe("Main validate Util Tests", function() {
 
     const schema1 = {
         "weapon": "String",
-        "pokemon": ["Array", "String"],
+        "pokemon": Tuple2("Array", "String"),
         "pokeball": {
             "material": "String",
             "cost": "Number"
         },
-        "characters": ["Array", {
+        "characters": Tuple2("Array", {
             "name": "String"
-        }]
+        })
     };
 
     const correct = {
@@ -160,26 +139,25 @@ describe("Main validate Util Tests", function() {
     };
 
 
-    it("correct types should output []",
+    it("correct types should output a Right",
         function() {
-            assert.deepEqual([],
-                utils.validate(correct, schema1));
+            const result = utils.validate(correct, schema1);
+	    console.log(result);
+            assert.isTrue(result.isRight);
 
         });
 
-    it("incorrect types should output a list of tuples",
+    it("incorrect types should output a left",
         function() {
-            assert.sameDeepMembers([Tuple2("material", false), Tuple2("characters", undefined)],
-                utils.validate(incorrect1, schema1));
+	    const result = utils.validate(incorrect1, schema1);
+            assert.isTrue(result.equals(S.Left(Tuple2("material", false))));
 
         });
 
-    it("incorrect types should output a list of tuples (part 2)",
+    it("incorrect types should output a left (part 2)",
         function() {
-            assert.deepEqual([Tuple2("weapon", undefined), Tuple2("pokemon", false),
-                    Tuple2("material", false), Tuple2("characters", undefined)
-                ],
-                utils.validate(incorrect2, schema1));
+	    const result = utils.validate(incorrect2, schema1);
+            assert.isTrue(result.equals(S.Left(Tuple2("weapon", undefined))));
 
         });
 
