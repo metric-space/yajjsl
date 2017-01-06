@@ -15,10 +15,9 @@
   "author": "functor-soup",
   "license": "MIT",
   "dependencies": {
-    "fantasy-eithers": "0.0.2",
     "fantasy-tuples": "^1.0.0",
-    "monet": "^0.8.10",
-    "ramda": "^0.22.1"
+    "ramda": "^0.22.1",
+    "sanctuary": "^0.11.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
