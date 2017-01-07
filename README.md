@@ -61,4 +61,7 @@ validate(incorrect1, schema1);
 ### P.S
 1. This also features schema checking for validity based on some preset rules
 
+### License
+MIT License
+
 [![Build Status](https://travis-ci.org/functor-soup/yajjsl.svg?branch=master)](https://travis-ci.org/functor-soup/yajjsl)
