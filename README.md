@@ -50,12 +50,15 @@ const incorrect1 = {
 
 validate(incorrect1, schema1);
 
-// output -> Left("weapon", undefined) 
+// output -> Left(Tuple("weapon", undefined)) 
 // tuples are based on fantasy-land-tuples
 
 ```
 
 ### What this is not
 1. A fast library (overuse of Ramda.js and Sanctuary js type checking has made this slow)
+
+### P.S
+1. This also features schema checking for validity based on some preset rules
 
 [![Build Status](https://travis-ci.org/functor-soup/yajjsl.svg?branch=master)](https://travis-ci.org/functor-soup/yajjsl)
