@@ -10,11 +10,11 @@ but that's just me.
 
 1. To provide type validation for entities inside a json object
 2. To provide checkif-empty/undefined validation for entities inside a json object
-3. The output of this will be a list of errors 
+3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right)
 
 ### Development Goals
 
-1. Use Monads and it's related operations  to make for readable code
+1. Use Applictive-functors/Monads and it's related operations  to make for readable code
 2. Use Ramda.js for other other operations
 3. Test library thoroughly
 
@@ -50,9 +50,12 @@ const incorrect1 = {
 
 validate(incorrect1, schema1);
 
-// output -> [("weapon", undefined), ("pokemon", false), ("material", false)] 
+// output -> Left("weapon", undefined) 
 // tuples are based on fantasy-land-tuples
 
 ```
+
+### What this is not
+1. A fast library (overuse of Ramda.js and Sanctuary js type checking has made this slow)
 
 [![Build Status](https://travis-ci.org/functor-soup/yajjsl.svg?branch=master)](https://travis-ci.org/functor-soup/yajjsl)

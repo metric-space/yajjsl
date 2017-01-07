@@ -142,7 +142,6 @@ describe("Main validate Util Tests", function() {
     it("correct types should output a Right",
         function() {
             const result = utils.validate(correct, schema1);
-	    console.log(result);
             assert.isTrue(result.isRight);
 
         });
