@@ -26,14 +26,12 @@ but that's just me.
 
 const schema1 = {
         "weapon": "String",
-        "pokemon": ["Array", "String"],
+        "pokemon": Tuple("Array", "String"),
         "pokeball": {
             "material": "String",
             "cost": "Number"
         },
-	"characters": ["Array", {
-            "name": "String"
-        }]
+	"characters": Tuple("Array", {"name": "String"})
 
     };
 
