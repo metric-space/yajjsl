@@ -25,5 +25,9 @@
     "gulp-mocha": "^3.0.1",
     "gulp-util": "^3.0.7",
     "mocha": "^3.2.0"
+  },
+  "repository" : { 
+    "type": "git",
+    "url" : "https://github.com/functor-soup/yajjsl.git"
   }
 }
