@@ -54,7 +54,7 @@ validate(incorrect1, schema1);
 ```
 
 ### What this is not
-1. A fast library (overuse of Ramda.js and Sanctuary js type checking has made this slow)
+1. An uber fast library 
 
 ### P.S
 1. This also features schema checking for validity based on some preset rules
