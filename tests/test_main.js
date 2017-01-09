@@ -51,5 +51,49 @@ describe("Util Tests", function() {
         });
 })
 
+describe("Benchmarking complex schema Tests", function() {
+
+    const schema = {"weapons":Tuple2("Array", 
+				     		{
+	                                         "name":"String", 
+						 "cost":"String",
+                                                 "description": {"status":"String",
+						                 "info":"String"}
+                                                }),
+                    "pokemon" : {"name":"String",
+		                 "stone":Tuple2("Array","String")}
+                   }
+
+    it("should return Right given correct schema and schema-valid object",
+        function() {
+
+	    const object1 = {"weapons" : [{"name":"Fishing Rod", 
+		                           "cost":"100 Quid",
+	                                   "description": {"status":"broken", "info":"Some loser called Brock broke it"}},
+	                                 {"name":"Repel", 
+					  "cost":"200 Quid",
+					  "description": {"status":"out-of-stock", "info":"Team Rocket bought it all :,("}},
+	                                 {"name":"Stick", 
+					  "cost":"0 Quid",
+					  "description":{"status":"plenty all around", "info":"Might come in handy if MagiKarp wacks the crap out of me"}},
+	                                 {"name":"Sheepinator", 
+					  "cost":"1000 Quid",
+					  "description":{"status":"lost in silvercity", "info":"Turns your enemies into sheep, how awesome is that?"}},
+	                                 {"name":"Rhydo 2", 
+					  "cost":"2000000 Quid",
+					  "description": {"status":"Dr. Nefarious has it", "info":"Makes your mama swallow planets .. hehehehe"}}], 
+		    "pokemon":{"name" : "Blaziken", 
+			       "stone": ["moon stone", "ratchet", "clank", "silvercity", 
+				         "thunder stone", "mooncity", "tibetian mongol",
+			                 "fenrir", "meggiddo", "rick", "morty", "cake",
+			                 "chicken tikka", "chicken 65", "pho", "quantum"]}}
+
+            assert.isTrue(validate(object1, schema).isRight);
+
+        });
+
+})
+
+
 
 
