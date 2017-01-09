@@ -12,6 +12,10 @@ but that's just me.
 2. To provide checkif-empty/undefined validation for entities inside a json object
 3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right)
 
+### Install
+
+`npm install yajjsl`
+
 ### Development Goals
 
 1. Use Applictive-functors/Monads and it's related operations  to make for readable code
