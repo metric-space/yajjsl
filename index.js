@@ -9,7 +9,7 @@ function validateComplete(object, schema) {
 	    S.Right(schema):
 	    S.Left(Tuple2("Schema","invalid")))
         .chain(x => validate(object, x))
-	.chain(x => S.Right(x));
+	.chain(x => S.Right(object));
 };
 
 module.exports = {
