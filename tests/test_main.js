@@ -31,7 +31,8 @@ describe("Util Tests", function() {
 	    const object1 = {"weapon" : "sheepinator", 
 		    "pokemon":["Blaziken", "Torchic"]}
 
-            assert.isTrue(validate(object1, schema1).isLeft);
+	    const result = validate(object1, schema1);
+            assert.isTrue(result.isLeft);
 
         });
 
@@ -49,6 +50,23 @@ describe("Util Tests", function() {
             assert.isTrue(validate(object1, schema1).isLeft);
 
         });
+
+    it("given a schema-invalid object in which a string is given in place of an object, should return left with correct error",
+        function() {
+            const schema1 = {
+                "weapon": "String",
+                "pokemon": Tuple2("Array", {"name":String})
+
+            };
+
+	    const object1 = {"weapon" : "sheepinator", "pokemon":"Blaziken"}
+
+	    const result = validate(object1, schema1);
+            assert.isTrue(result.isLeft);
+            assert.equal(result.value._2, false);
+
+        });
+
 })
 
 describe("Benchmarking complex schema Tests", function() {
