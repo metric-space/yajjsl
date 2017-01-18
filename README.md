@@ -62,7 +62,7 @@ validate(incorrect1, schema1);
 
 ### P.S
 1. This also features schema checking for validity based on some preset rules
-2. The output is based off fantasy-land compliant stuff so you should be able to use the monadic output in any monadic/ applicative-functorish chains
+2. The output is based off fantasy-land compliant stuff so you should be able to use the monadic output in any monadic/ applicative-functorish chainsas long as the monads/applicative-functos belong to any fantasy-land compliant library
 
 ### License
 MIT License
