@@ -4,13 +4,13 @@
 
 Yet another piece of code that tries to validate json based on types,
 this is NOT BASED ON THE JSON SCHEMA STANDARD which I find too verbose for my likes
-but that's just me.
+but that's just me. YET REJOICE BECAUSE THE OUTPUT IS MONADIC !!!!
 
 ### Goals of this Library
 
 1. To provide type validation for entities inside a json object
 2. To provide checkif-empty/undefined validation for entities inside a json object
-3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right) aka monadic code (Either Monad)
+3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right) aka monadic (Either Monad)
 
 ### Install
 
@@ -62,7 +62,7 @@ validate(incorrect1, schema1);
 
 ### P.S
 1. This also features schema checking for validity based on some preset rules
-2. The output is based off fantasy-land compliant stuff so you should be able to use the monadic output in any monadic/ applicative-functorish chainsas long as the monads/applicative-functos belong to any fantasy-land compliant library
+2. The output is based off fantasy-land compliant stuff so you should be able to use the monadic output in any monadic/ applicative-functorish chains as long as the monads/applicative-functors belong to any fantasy-land compliant library
 
 ### License
 MIT License
