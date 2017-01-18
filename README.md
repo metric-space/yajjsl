@@ -10,7 +10,7 @@ but that's just me.
 
 1. To provide type validation for entities inside a json object
 2. To provide checkif-empty/undefined validation for entities inside a json object
-3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right)
+3. The output of this will be the first error encountered (Wrapped in a Left) or the whole object (wrapped in a Right) aka monadic code (Either Monad)
 
 ### Install
 
@@ -18,7 +18,7 @@ but that's just me.
 
 ### Development Goals
 
-1. Use Applictive-functors/Monads and it's related operations  to make for readable code
+1. Use Applictive-functors/Monads and it's related operations to make for readable code
 2. Use Ramda.js for other other operations
 3. Test library thoroughly
 
@@ -62,6 +62,7 @@ validate(incorrect1, schema1);
 
 ### P.S
 1. This also features schema checking for validity based on some preset rules
+2. The output is based off fantasy-land compliant stuff so you should be able to use the monadic output in any monadic/ applicative-functorish chains
 
 ### License
 MIT License
