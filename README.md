@@ -57,6 +57,18 @@ validate(incorrect1, schema1);
 
 ```
 
+### Left Output
+
+```javascript
+ // note I use Tuple and Tuple2 interchangebly
+
+ Left(Tuple("key", undefined))   // -> "key" field is undefined 
+ Left(Tuple("key", false))       // -> "key" has failed schema-based-validation
+ Left(Tuple("key", "empty"))     // -> "key" has an empty element ({} or [])
+ Left(Tuple("Schema","invalid")) // -> schema given is invalid
+ 
+```
+
 ### What this is not
 1. An uber fast library 
 
